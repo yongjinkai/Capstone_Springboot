@@ -1,7 +1,13 @@
 package org.example.model;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.validation.constraints.*;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "user")
 public class User {
@@ -9,13 +15,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne (mappedBy = "user", orphanRemoval = true)
+    @JsonBackReference
     private Patient patient;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "email", nullable = false)
+
+
+    @NotBlank(message = "Email cannot be blank")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @Column(name = "phone")
@@ -24,25 +34,17 @@ public class User {
     @Column
     private String role;
 
-    public User(){}
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public User(String name, String email, String phone, String role) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.role = role;
-    }
-
     public Long getUserId() {
         return userId;
+    }
+
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public String getName() {
@@ -53,11 +55,11 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
+    public @NotBlank(message = "Email cannot be blank") String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NotBlank(message = "Email cannot be blank") String email) {
         this.email = email;
     }
 
@@ -67,5 +69,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

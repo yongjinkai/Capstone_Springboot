@@ -64,10 +64,10 @@ public class PatientController {
                 updatedPatient.setMedicalPrescriptions(patient.getMedicalPrescriptions());
             if (patient.getAdditionalNotes() != null)
                 updatedPatient.setAdditionalNotes(patient.getAdditionalNotes());
-            if (patient.getStartDate() != null)
-                updatedPatient.setStartDate(patient.getStartDate());
-            if (patient.getEndDate() != null)
-                updatedPatient.setEndDate(patient.getEndDate());
+//            if (patient.getStartDate() != null)
+            updatedPatient.setStartDate(patient.getStartDate());
+//            if (patient.getEndDate() != null)
+            updatedPatient.setEndDate(patient.getEndDate());
         }
         //Update assigned nurseid through optional @pathVariable parameter
         if(nurseId != null) {

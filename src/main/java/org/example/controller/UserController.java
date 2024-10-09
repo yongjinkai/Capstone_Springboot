@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.exception.ResourceNotFoundException;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,12 @@ public class UserController {
         if (user.getPhone() != null)
             updatedUser.setPhone(user.getPhone());
         return new ResponseEntity<>(userRepository.save(updatedUser),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Object> deleteUser(@PathVariable Long userId){
+        User user = userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException());
+        userRepository.deleteById(userId);
+        return new ResponseEntity<>("User deleted",HttpStatus.OK);
     }
 }
