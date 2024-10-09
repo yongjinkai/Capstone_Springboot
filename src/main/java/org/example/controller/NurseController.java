@@ -23,4 +23,9 @@ public class NurseController {
         return new ResponseEntity<>(nurseRepository.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{nurseId}")
+    public ResponseEntity<Object> getPatientsUnderNurse(@PathVariable Long nurseId){
+        return null;
+    }
+
 }

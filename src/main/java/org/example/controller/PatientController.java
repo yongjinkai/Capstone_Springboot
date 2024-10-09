@@ -86,7 +86,7 @@ public class PatientController {
     public ResponseEntity<Object> updatePatient(@PathVariable Long patientId){
         Patient patient = patientRepository.findById(patientId).get();
         patient.setNurse(null);
-        return new ResponseEntity<>("Nurse removed",HttpStatus.OK);
+        return new ResponseEntity<>(patientRepository.save(patient),HttpStatus.OK);
     };
 
 }
